@@ -1,4 +1,5 @@
 import 'package:chat_ui/models/messageModel.dart';
+import 'package:chat_ui/service/messageService.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math' as math;
 
@@ -28,14 +29,22 @@ class ChatBubble extends StatelessWidget {
       child: Container(
         margin: this._margin(),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: messageData.isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: <Widget>[
+            messageData.isUser ? Container(
+              margin: EdgeInsets.symmetric(horizontal: 3.0),
+              child: Text(
+                MessageService.dateTimeToText(dateTime: messageData.messageSentTime) ?? "",
+                style: TextStyle(fontSize: 13.0),
+              ),
+            ) : Container(),
             Stack(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(12.0),
                   constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * 0.7,
+                    maxWidth: MediaQuery.of(context).size.width * 0.6,
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(22.0),
@@ -63,6 +72,13 @@ class ChatBubble extends StatelessWidget {
                 ) : Container(),
               ],
             ),
+            !messageData.isUser ? Container(
+              margin: EdgeInsets.symmetric(horizontal: 3.0),
+              child: Text(
+                MessageService.dateTimeToText(dateTime: messageData.messageSentTime) ?? "",
+                style: TextStyle(fontSize: 12.0),
+              ),
+            ) : Container(),
           ],
         ),
       ),

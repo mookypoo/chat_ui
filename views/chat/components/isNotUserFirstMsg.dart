@@ -1,6 +1,8 @@
 import 'package:chat_ui/models/messageModel.dart';
+import 'package:chat_ui/service/messageService.dart';
 import 'package:chat_ui/views/chat/components/chatBubblePointer.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 class IsNotUserFirstMsg extends StatelessWidget {
   IsNotUserFirstMsg({Key? key, required this.messageData, required this.imageUrl, required this.name, required this.index}) : super(key: key);
   final MessageModel messageData;
@@ -41,37 +43,49 @@ class IsNotUserFirstMsg extends StatelessWidget {
                 margin: EdgeInsets.only(bottom: 5.0),
                 child: Text(this.name),
               ),
-              Stack(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Positioned(
-                    bottom: 0.0,
-                    left: 0.0,
-                    child: CustomPaint(
-                      painter: ChatBubblePointer(fillColor: Color.fromRGBO(187, 222, 234, 1.0),),
-                    ),
+                  Stack(
+                    children: <Widget>[
+                      Positioned(
+                        bottom: 0.0,
+                        left: 0.0,
+                        child: CustomPaint(
+                          painter: ChatBubblePointer(fillColor: Color.fromRGBO(187, 222, 234, 1.0),),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(12.0),
+                        constraints: BoxConstraints(
+                          maxWidth: MediaQuery.of(context).size.width * 0.6,
+                        ),
+                        decoration: BoxDecoration(
+                          // border: Border.all(),
+                          borderRadius: BorderRadius.circular(22.0),
+                          color: Color.fromRGBO(187, 222, 234, 1.0),
+                        ),
+                        child: Text(
+                          this.messageData.message,
+                          maxLines: 8,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color.fromRGBO(0, 0, 0, 1.0),
+                          ),
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                   Container(
-                    padding: EdgeInsets.all(12.0),
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.65,
-                    ),
-                    decoration: BoxDecoration(
-                      // border: Border.all(),
-                      borderRadius: BorderRadius.circular(22.0),
-                      color: Color.fromRGBO(187, 222, 234, 1.0),
-                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 3.0),
                     child: Text(
-                      this.messageData.message,
-                      maxLines: 8,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: Color.fromRGBO(0, 0, 0, 1.0),
-                      ),
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
+                      MessageService.dateTimeToText(dateTime: messageData.messageSentTime) ?? "",
+                      style: TextStyle(fontSize: 12.0),
                     ),
                   ),
-                ],
+                ]
               ),
             ],
           ),

@@ -36,6 +36,31 @@ class MessagesData {
           messageSentTime: DateTime.now().subtract(Duration(minutes: 5)),
           isUser: false,
         ),
+        MessageModel(
+          message: "I miss you dude.",
+          messageSentTime: DateTime.now().subtract(Duration(minutes: 4)),
+          isUser: false,
+        ),
+        MessageModel(
+          message: "Same here man.",
+          messageSentTime: DateTime.now().subtract(Duration(minutes: 3)),
+          isUser: true,
+        ),
+        MessageModel(
+          message: "You wanna meet up next week?",
+          messageSentTime: DateTime.now().subtract(Duration(minutes: 2)),
+          isUser: true,
+        ),
+        MessageModel(
+          message: "Let's eat some dank steak! I know a good place",
+          messageSentTime: DateTime.now().subtract(Duration(minutes: 1)),
+          isUser: true,
+        ),
+        MessageModel(
+          message: "I'm dowwwnnnnnn",
+          messageSentTime: DateTime.now().subtract(Duration(minutes: 1)),
+          isUser: false,
+        ),
       ],
     ),
     UserMessages(

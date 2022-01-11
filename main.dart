@@ -34,6 +34,7 @@ class Main extends StatelessWidget {
         )
       : CupertinoApp(
           theme: CupertinoThemeData(
+            primaryColor: Color.fromRGBO(0, 0, 0, 1.0),
             textTheme: CupertinoTextThemeData(
               textStyle: GoogleFonts.montserrat(
                 color: CupertinoColors.black,
