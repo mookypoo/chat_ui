@@ -1,10 +1,12 @@
+import 'dart:ui';
+
 import 'package:chat_ui/data/chatListData.dart';
 import 'package:chat_ui/data/messagesData.dart';
 import 'package:chat_ui/models/chatListTileModel.dart';
 import 'package:chat_ui/models/messageModel.dart';
 import 'package:flutter/widgets.dart';
 
-class MessageService with ChangeNotifier {
+class MessageService {
 
   static String covertTimeToString({required DateTime time}) {
     Duration difference = DateTime.now().difference(time);
@@ -59,14 +61,6 @@ class MessageService with ChangeNotifier {
         MessageModel(message: message, messageSentTime: DateTime.now(), isUser: true));
   }
 
-  static void init({required ScrollController scrollCt, BuildContext? context}){
-    ScrollMetrics _metrics;
-    if(scrollCt.hasClients){
-      scrollCt.jumpTo(scrollCt.position.maxScrollExtent);
-      _metrics = scrollCt.position.copyWith();
-    }
-  }
-
   static String? dateTimeToText({required DateTime dateTime}) {
     int _minute = dateTime.minute;
     String _min = _minute.toString().padLeft(2, "0");
@@ -87,6 +81,82 @@ class MessageService with ChangeNotifier {
       }
     } else {
       return "$_hour:$_min AM";
+    }
+  }
+
+  static TextSpan highlightedTextSpan({required String text, required bool needHighlight}){
+    return TextSpan(
+      text: text,
+      style: TextStyle(
+        fontSize: 16.0,
+        color: Color.fromRGBO(0, 0, 0, 1.0),
+        backgroundColor: needHighlight ? Color.fromRGBO(255, 255, 0, 0.9) : null,
+      ),
+    );
+  }
+
+  static List<TextSpan> highlightMessage({required String? searchText, required String message}){
+    if (searchText == null || !message.toLowerCase().trim().contains(searchText.toLowerCase().trim()) || searchText.isEmpty) {
+      return [MessageService.highlightedTextSpan(
+        text: message,
+        needHighlight: false,
+      )];
+    }
+    List<TextSpan> _messageText = [];
+    Iterable<Match> _matches = searchText.toLowerCase().trim().allMatches(message.toLowerCase().trim()).toList();
+    int startIndex = 0;
+    for (int i=0; i < _matches.length; i++) {
+      final Match _match = _matches.elementAt(i);
+
+      _messageText.add(MessageService.highlightedTextSpan(
+          text: message.substring(startIndex, _match.start),
+          needHighlight: false,));
+
+      _messageText.add(MessageService.highlightedTextSpan(
+        text: message.substring(_match.start, _match.end),
+        needHighlight: true,));
+
+      if (i == _matches.length - 1 && _match.end != message.length) {
+        _messageText.add(MessageService.highlightedTextSpan(
+          text: message.substring(_match.end),
+          needHighlight: false,));
+      }
+
+      startIndex = _match.end;
+
+      /*
+      if (i > 0) {
+        final Match _nextMatch = _matches.elementAt(i);
+        print(i);
+        _messageText.add(MessageService.highlightedTextSpan(
+          text: message.substring(_nextMatch.start+searchText.length, _nextMatch.start),
+          needHighlight: false,));
+
+        _messageText.add(MessageService.highlightedTextSpan(
+          text: message.substring(_nextMatch.start, _nextMatch.start+searchText.length),
+          needHighlight: true,));
+
+        _messageText.add(MessageService.highlightedTextSpan(
+          text: message.substring(_nextMatch.start+searchText.length),
+          needHighlight: false,));
+      }
+       */
+    }
+    return _messageText;
+  }
+
+  static Color? backgroundColor({required String? searchText, required String message}) {
+    if (searchText == null) return null;
+    if (message.toLowerCase().contains(searchText.toLowerCase())) {
+      int _startIndex = message.toLowerCase().indexOf(searchText);
+      // for (int i = 0; i < message.length; i++) {
+      //   if (message[i])
+      // }
+      for (int i = _startIndex; i < searchText.length; i++) {
+        return Color.fromRGBO(255, 255, 0, 0.9);
+      }
+    } else {
+      return null;
     }
   }
 }
