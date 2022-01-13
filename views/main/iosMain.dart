@@ -57,11 +57,11 @@ class _IosMainState extends State<IosMain> {
                               margin: EdgeInsets.only(top: 13.0),
                               height: 6.0,
                               decoration: this._currentIndex == _index
-                                  ? BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 0, 122, 255),
-                              )
-                                  : null,
+                                ? BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Color.fromARGB(255, 0, 122, 255),
+                                  )
+                                : null,
                             ),
                           ],
                         ),

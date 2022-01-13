@@ -51,6 +51,22 @@ class ChatListData {
       online: false,
       profileImage: "https://images.unsplash.com/photo-1601979031925-424e53b6caaa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHB1cHB5fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1400&q=60",
     ),
+    ChatTileModel(
+      didUserRead: false,
+      lastMessage: "Soooo Cutee",
+      lastMsgTime: DateTime.now().subtract(Duration(days: 2)),
+      name:  "Pomeranian",
+      online: true,
+      profileImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGel7E8lDGmsNM54qNq5Opgo4NwAnzXi1X8g&usqp=CAU",
+    ),
+    ChatTileModel(
+      didUserRead: false,
+      lastMessage: "The all mighty Chow Chow",
+      lastMsgTime: DateTime.now().subtract(Duration(days: 2)),
+      name:  "Chow Chow",
+      online: true,
+      profileImage: "https://animals.net/wp-content/uploads/2018/06/Chow-2.jpg",
+    ),
   ];
 
 }

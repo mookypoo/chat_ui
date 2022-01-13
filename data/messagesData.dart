@@ -61,6 +61,11 @@ class MessagesData {
           messageSentTime: DateTime.now().subtract(Duration(minutes: 1)),
           isUser: false,
         ),
+        MessageModel(
+          message: "I'm free next Wednesday and Friday afternoon!",
+          messageSentTime: DateTime.now().subtract(Duration(minutes: 1)),
+          isUser: false,
+        ),
       ],
     ),
     UserMessages(
@@ -110,6 +115,26 @@ class MessagesData {
           message: "Whoa I have never seen an odd eyed pupper in real life. Beautiful, it is.",
           messageSentTime: DateTime.now().subtract(Duration(days: 1)),
           isUser: false,
+        ),
+      ],
+    ),
+    UserMessages(
+      name: "Pomeranian",
+      messages: [
+        MessageModel(
+          message: "Sooooo Cuteeeee.",
+          messageSentTime: DateTime.now().subtract(Duration(days: 2)),
+          isUser: true,
+        ),
+      ],
+    ),
+    UserMessages(
+      name: "Chow Chow",
+      messages: [
+        MessageModel(
+          message: "The all mighty chow chow",
+          messageSentTime: DateTime.now().subtract(Duration(days: 2)),
+          isUser: true,
         ),
       ],
     ),
