@@ -123,24 +123,6 @@ class MessageService {
       }
 
       startIndex = _match.end;
-
-      /*
-      if (i > 0) {
-        final Match _nextMatch = _matches.elementAt(i);
-        print(i);
-        _messageText.add(MessageService.highlightedTextSpan(
-          text: message.substring(_nextMatch.start+searchText.length, _nextMatch.start),
-          needHighlight: false,));
-
-        _messageText.add(MessageService.highlightedTextSpan(
-          text: message.substring(_nextMatch.start, _nextMatch.start+searchText.length),
-          needHighlight: true,));
-
-        _messageText.add(MessageService.highlightedTextSpan(
-          text: message.substring(_nextMatch.start+searchText.length),
-          needHighlight: false,));
-      }
-       */
     }
     return _messageText;
   }
