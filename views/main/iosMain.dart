@@ -28,6 +28,7 @@ class _IosMainState extends State<IosMain> {
   ];
 
   int _currentIndex = 0;
+  PageController _pageCt = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,17 @@ class _IosMainState extends State<IosMain> {
       child: CupertinoPageScaffold(
         child: Column(
           children: <Widget>[
-            Expanded(child: this._tabs[this._currentIndex].page),
+            Expanded(
+              child: PageView(
+                controller: this._pageCt,
+                onPageChanged: (int i) {
+                  this.setState(() {
+                    this._currentIndex = i;
+                  });
+                },
+                children: this._tabs.map<Widget>((TabModel m) => m.page).toList(),
+              ),
+            ),
             GestureDetector(
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.09,
@@ -44,9 +55,12 @@ class _IosMainState extends State<IosMain> {
                   children: this._tabs.map<Widget>((TabModel tb) {
                     int _index = this._tabs.indexOf(tb);
                     return GestureDetector(
-                      onTap: () => this.setState(() {
-                        this._currentIndex = _index;
-                      }),
+                      onTap: () {
+                        this.setState(() {
+                          this._currentIndex = _index;
+                        });
+                        this._pageCt.jumpToPage(_index);
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width / 3,
                         child: Column(

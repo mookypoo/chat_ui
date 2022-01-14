@@ -23,6 +23,9 @@ class _IosChatDetailState extends State<IosChatDetail> {
 
   String? _searchText;
 
+  // todo when there's no search results, inform user
+  // todo be able to go up and down on search results
+
   Widget _searchTextfield(){
     return Container(
       child: CupertinoTextField(
@@ -31,8 +34,9 @@ class _IosChatDetailState extends State<IosChatDetail> {
         autocorrect: false,
         showCursor: true,
         onSubmitted: (String text) {
-          this._searchText = text;
-          this.setState(() {});
+          this.setState(() {
+            this._searchText = text;
+          });
         },
       ),
     );
@@ -136,6 +140,10 @@ class _IosChatDetailState extends State<IosChatDetail> {
                           onPressed: () {
                             this.setState(() {
                               this.isSearch = !this.isSearch;
+                              if (!this.isSearch) {
+                                this._searchTextCt!.clear();
+                                this._searchText = "";
+                              }
                             });
                           },
                         ),

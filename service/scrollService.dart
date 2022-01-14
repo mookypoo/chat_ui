@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 
 class ScrollService {
-  static double? scrollOffset;
   static bool isAtBottom = true;
 
   static void init({required ScrollController scrollCt, BuildContext? context, required Function() cb}){

@@ -1,5 +1,4 @@
 import 'package:chat_ui/data/chatListData.dart';
-import 'package:chat_ui/service/scrollService.dart';
 import 'package:chat_ui/views/chat/components/ios/iosChatListTile.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -10,21 +9,8 @@ class IosChatList extends StatefulWidget {
   State<IosChatList> createState() => _IosChatListState();
 }
 
-class _IosChatListState extends State<IosChatList> {
+class _IosChatListState extends State<IosChatList> with AutomaticKeepAliveClientMixin<IosChatList>{
   ScrollController _scrollCt = ScrollController();
-
-  @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      this._scrollCt.addListener(() {
-        ScrollService.scrollOffset = this._scrollCt.offset;
-      });
-      if (ScrollService.scrollOffset != null ) {
-        this._scrollCt.jumpTo(ScrollService.scrollOffset!);
-      }
-    });
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -34,6 +20,7 @@ class _IosChatListState extends State<IosChatList> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: CustomScrollView(
         controller: this._scrollCt,
@@ -58,4 +45,7 @@ class _IosChatListState extends State<IosChatList> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
